@@ -5,6 +5,6 @@ import api from '../../services/api';
 export default class Main extends Component {
     render() {
 
-        return <h1>Hello</h1>
+        return <h1>Hello World!</h1>
     }
 }
