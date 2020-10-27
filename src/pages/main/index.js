@@ -1,31 +1,49 @@
 import React, { Component } from 'react';
 import api from '../../services/api';
 import './style.css';
-
+import { Link } from 'react-router-dom';
 
 export default class Main extends Component {
     state = { //variável estado do react
-        products: []
+        products: [],
+        productsInfo: {},
+        page: 1,
 
 
     };
+
     componentDidMount() {
         this.loadProducts();
 
     }
-    loadProducts = async () => {
+
+    loadProducts = async (page = 1) => { //manipulação de produtos (dados) da api
         const response = await api.get('./products');
-
-        this.setState({ products: response.data.docs });
-
+        const { docs, ...productsInfo } = response.data; //duas variaveis, uma tem produtos e outra tem o resto
+        this.setState({ products: docs, productsInfo, page });
 
     };
-    prevPage = () => { };
-    nextPage = () => { };
 
+    //métodos de manipulação de páginas
+
+    prevPage = () => {
+        const { page, productsInfo } = this.state;
+        if (page === 1) return; //pagina atual =1
+
+        const pageNumber = page - 1;
+        this.loadProducts(pageNumber);
+    };
+
+    nextPage = () => {
+        const { page, productsInfo } = this.state;
+        if (page === productsInfo.pages) return; //se for a ultima pagina, retorna nada
+        const pageNumber = page + 1; //pega a proxima
+        this.loadProducts(pageNumber);
+
+    };
 
     render() { //escutando a variavel de estado e atualiza conforme ela
-        const { products } = this.state;
+        const { products, page, productsInfo } = this.state; //declaration
 
         return (
             <div className="products-list">
@@ -35,18 +53,19 @@ export default class Main extends Component {
                         <p>{products.description}</p>
 
 
-                        <a href="">Acessar</a>
+                        <Link to={`/products/${products._id}`}>Acessar</Link>
+
                     </article>
                 ))}
-                <div>
-                    <button onClick={this.prevPage}>Anterior</button>
-                    <button onClick={this.nextPage}>Próxima</button>
+                <div className="actions">
+                    <button disabled={page === 1} onClick={this.prevPage}>
+                        Anterior
+                    </button>
+                    <button disabled={page === productsInfo.pages} onClick={this.nextPage}>
+                        Próxima
+                        </button>
                 </div>
             </div>
         );
-        {/* <h1>Contagem produtos: {this.state.products.length}</h1> */ }
-
-
-        // return <h1>Hello</h1>
     }
 }
