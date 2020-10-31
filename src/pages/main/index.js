@@ -8,25 +8,20 @@ export default class Main extends Component {
         products: [],
         productsInfo: {},
         page: 1,
-
-
     };
 
     componentDidMount() {
         this.loadProducts();
-
     }
-
     loadProducts = async (page = 1) => { //manipulação de produtos (dados) da api
         const response = await api.get('./products');
         const { docs, ...productsInfo } = response.data; //duas variaveis, uma tem produtos e outra tem o resto
         this.setState({ products: docs, productsInfo, page });
 
     };
-
     //métodos de manipulação de páginas
 
-    prevPage = () => {
+    deleteButton = () => {
         const { page, productsInfo } = this.state;
         if (page === 1) return; //pagina atual =1
 
@@ -34,7 +29,7 @@ export default class Main extends Component {
         this.loadProducts(pageNumber);
     };
 
-    nextPage = () => {
+    createButton = () => {
         const { page, productsInfo } = this.state;
         if (page === productsInfo.pages) return; //se for a ultima pagina, retorna nada
         const pageNumber = page + 1; //pega a proxima
@@ -52,17 +47,16 @@ export default class Main extends Component {
                         <strong>{products.title}</strong>
                         <p>{products.description}</p>
 
-
                         <Link to={`/products/${products._id}`}>Acessar</Link>
 
                     </article>
                 ))}
                 <div className="actions">
-                    <button disabled={page === 1} onClick={this.prevPage}>
-                        Anterior
+                    <button onClick={this.createButton}>
+                        Create
                     </button>
-                    <button disabled={page === productsInfo.pages} onClick={this.nextPage}>
-                        Próxima
+                    <button onClick={this.deleteButton}>
+                        Delete
                         </button>
                 </div>
             </div>

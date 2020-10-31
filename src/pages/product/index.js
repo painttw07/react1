@@ -20,11 +20,11 @@ export default class Product extends Component {
 
         return (
             <div className="product-info">
-                <h1>{product.title}</h1>
+                <h2>{product.title}</h2>
                 <p>{product.description}</p>
-                <p>
-                    URL: <a href={product.url}>{product.url}</a>
-                </p>
+                <p>{product.name}</p>
+                <p>{product.createAt}</p>
+
             </div>
         );
     }

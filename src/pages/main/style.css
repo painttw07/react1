@@ -14,7 +14,7 @@
     }
     .products-list article p{
     font-size: 16px;
-    color: #999;
+    color:  #A9A9A9;
     margin-top: 5px;
     line-height: 24px;
     
@@ -22,11 +22,11 @@
     .products-list article a {
     height: 42px;
     border-radius: 5px;
-    border: 2px solid #da552f;
+    border: 2px solid #A9A9A9;
     background: none;
     margin-top: 10px;
-    color: #da552f;
-    font-weight: bold;
+    color:#A9A9A9;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 16px;
     text-decoration: none;
     display: flex;
@@ -36,7 +36,7 @@
     
     }
     .products-list article a:hover{
-    background: darkblue;
+    background:  #A9A9A9;
     color: #fff;
     
     }
@@ -50,7 +50,7 @@
         padding: 10px;
         border-radius: 5px;
         border: 0;
-        background: darkcyan;
+        background: #808080;
         color: #fff;
         font-size: 16px;
         font-weight: bold;
